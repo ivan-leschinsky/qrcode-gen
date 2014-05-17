@@ -1,12 +1,24 @@
 form method="post"
   .form-group
-    label for='encodeme' type here
-    input name="encodeme" type="text" placeholder="enter some text" value="#{link}"
+    label for='text_to_encode' Введите текст
+    input name="text_to_encode" type="text" placeholder="введите любой текст" value="#{link}"
+  / .form-group
+  /   label for='border' Рамка
+  /   input.slider#border-slider type="slider" name="border" value="#{border.to_i}"
+  / .form-group
+  /   label for='pixel-size' Размер
+  /   input.slider#pixel-size-slider type="slider" name="pixel_size" value="#{pixel_size.to_i}"
   .form-group
-    label for='border' border
-    input.slider#border-slider type="slider" name="border" value="#{border.to_i}"
-  .form-group
-    label for='pixel-size' how big
-    input.slider#pixel-size-slider type="slider" name="pixel_size" value="#{pixel_size.to_i}"
+    label for='pixel-size' Уровень сжатия
+    table
+      tr
+        - levels.keys.each do |lvl|
+          td
+            - if (level == lvl)
+              input.css-checkbox type="radio" name="level" id="level_#{lvl}" value="#{lvl}" checked="true"
+            - else
+              input.css-checkbox type="radio" name="level" id="level_#{lvl}" value="#{lvl}"
+            label.css-label for="level_#{lvl}" = levels[lvl]
+
   .form-controls
-    input type="submit" value="qr4r it!"
+    input type="submit" value="Создать"

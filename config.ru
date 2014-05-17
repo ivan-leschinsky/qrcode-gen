@@ -3,6 +3,6 @@ require 'sinatra'
 
 disable :run, :reload
 
-require './the_app.rb'
+require './qr_generate_app.rb'
 
-run TheApp.new
+run QrGenerateApp.new

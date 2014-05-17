@@ -1,12 +1,15 @@
 - link ||= ''
 - file ||= file
-- pixel_size ||= 20
+- pixel_size ||= 13
 - border ||= 0
+- level ||= :h
+- levels ||= {l: "7%", m: "15%", q: "25%", h: "30%"}
 .section
-    == slim :form, :locals => { file: file, border: border, pixel_size: pixel_size, link: link}
- 
+    == slim :form, :locals => { file: file, border: border, pixel_size: pixel_size, link: link, levels: levels, level: level}
+
 .section.results
   - if file
-    h2 
-      a href=file #{file}
     img src=file
+    h2
+      a href=file Скачать файл
+      / a href=file #{file}

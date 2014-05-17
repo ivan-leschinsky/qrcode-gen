@@ -9,7 +9,7 @@ require 'fileutils'
 
 require 'qr4r'
 
-class TheApp < Sinatra::Base
+class QrGenerateApp < Sinatra::Base
 
   set :environment, :production
   set :logging, true
@@ -29,15 +29,23 @@ class TheApp < Sinatra::Base
   end
 
   post '/' do
-    link = params['encodeme']
-    border = params['border']
-    pixel_size = params['pixel_size'] || 20
+    link = params['text_to_encode']
+    border = params['border'] || 0
+    level = params['level'].to_sym
+    pixel_size = params['pixel_size'] || 15
 
-    file = Tempfile.new(['qrcode', '.png'], settings.qrdir, 'w')
-    
+    file = Tempfile.new(['qrcode_', '.png'], settings.qrdir, 'w')
+
     encode_opts = {
       pixel_size: pixel_size,
-      border: border
+      border: border,
+      level: level,
+      levels: {
+                l: "7%",
+                m: "15%",
+                q: "25%",
+                h: "30%"
+              }
     }
     Qr4r::encode link, file.path, encode_opts
     slim :index, :locals => {
@@ -48,6 +56,15 @@ class TheApp < Sinatra::Base
   end
 
   run! if app_file == $0
+
+  def get_levels
+    {
+      l: "7%",
+      m: "15%",
+      q: "25%",
+      h: "30%"
+    }
+  end
 
   def asset_path(f)
     f.gsub(/^#{settings.public_folder}/, '')

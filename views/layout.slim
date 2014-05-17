@@ -2,7 +2,7 @@ doctype html
 head
   meta charset="utf-8"
   meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
-  title= "Testing Qr4r gem"
+  title= "Генерация QR-кода"
   meta name="description" content=""
   meta name="author" content=""
   meta name="keywords" content=""
@@ -13,18 +13,18 @@ head
   link rel="icon" type="image/png" href="/images/favicon.png"
 
   body
-    a href="https://github.com/rcode5/qr4r_test_app"
+    a href="https://github.com/ivan-leschinsky/qrcode-gen"
       img.fork-me src="/images/fork_me_on_github.png" alt="Fork me on GitHub"
     header.header
       img src="/images/logo.png"
     #container
       == yield
-    footer.footer
-      a.link href="http://github.com/rcode5/qr4r" powered by qr4r
-      a.link href="http://www.rcode5.com" site by rcode 5 
-      a.link href="http://www.heroku.com" hosted by heroku
-      
+    / footer.footer
+    /   a.link href="http://github.com/rcode5/qr4r" powered by qr4r
+    /   a.link href="http://www.rcode5.com" site by rcode 5
+    /   a.link href="http://www.heroku.com" hosted by heroku
 
-  - %w(//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js //cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js /javascripts/jquery.slider.min.js /javascripts/qr4r.js).each do |js|
+
+  - %w(/javascripts/underscore-min.js /javascripts/jquery.min.js /javascripts/jquery.slider.min.js /javascripts/qr4r.js).each do |js|
     script type="text/javascript" src=js
-    
+
