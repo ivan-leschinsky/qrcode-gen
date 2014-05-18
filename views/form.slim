@@ -1,16 +1,7 @@
-form method="post"
-  .form-group
-    label for='text_to_encode' Введите текст
-    input name="text_to_encode" type="text" placeholder="введите любой текст" value="#{link}"
-  / .form-group
-  /   label for='border' Рамка
-  /   input.slider#border-slider type="slider" name="border" value="#{border.to_i}"
-  / .form-group
-  /   label for='pixel-size' Размер
-  /   input.slider#pixel-size-slider type="slider" name="pixel_size" value="#{pixel_size.to_i}"
-  .form-group
-    label for='pixel-size' Уровень сжатия
-    table
+form.col-lg-12 method="post"
+  .input-group.input-group-lg.col-sm-offset-4.col-sm-4
+    label.lead for='pixel-size' Выберите уровень сжатия:
+    table.encode-level
       tr
         - levels.keys.each do |lvl|
           td
@@ -20,5 +11,7 @@ form method="post"
               input.css-checkbox type="radio" name="level" id="level_#{lvl}" value="#{lvl}"
             label.css-label for="level_#{lvl}" = levels[lvl]
 
-  .form-controls
-    input type="submit" value="Создать"
+  .input-group.input-group-lg.col-sm-offset-4.col-sm-4
+    input.center-block.form-control.input-lg placeholder=("Введите текст для кодирования") required="" title=("Введите текст для кодирования с помощью QR-кода") type="text" name="text_to_encode" value="#{link}"
+      span.input-group-btn
+        input.btn.btn-lg.btn-primary type="submit" value="Создать"

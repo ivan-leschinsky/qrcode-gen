@@ -1,15 +1,31 @@
 - link ||= ''
 - file ||= file
-- pixel_size ||= 13
-- border ||= 0
 - level ||= :h
 - levels ||= {l: "7%", m: "15%", q: "25%", h: "30%"}
-.section
-    == slim :form, :locals => { file: file, border: border, pixel_size: pixel_size, link: link, levels: levels, level: level}
+- error_text ||= nil
 
-.section.results
-  - if file
-    img src=file
-    h2
-      a href=file Скачать файл
-      / a href=file #{file}
+.container-full
+  .row
+    .col-lg-12.text-center.v-center
+      h1 Кодирование QR-кода
+      br
+      == slim :form, :locals => { file: file, link: link, levels: levels, level: level}
+
+  br
+
+.container
+  - if (error_text)
+    .alert.alert-danger.error-block
+      p.text-center.bigger-font-size  = error_text
+  - else
+    hr
+      - if file
+        .row
+          .col-md-12
+            .panel.panel-default
+              .panel-heading
+                p.text-center.bigger-font-size  Результат
+              .panel-body.text-center
+                img src=file
+                h2
+                  a href=file Скачать файл

@@ -29,41 +29,40 @@ class QrGenerateApp < Sinatra::Base
   end
 
   post '/' do
-    link = params['text_to_encode']
-    border = params['border'] || 0
+    text = params['text_to_encode']
+    border = 0
     level = params['level'].to_sym
-    pixel_size = params['pixel_size'] || 15
+    pixel_size = size_by_text text
 
     file = Tempfile.new(['qrcode_', '.png'], settings.qrdir, 'w')
 
     encode_opts = {
       pixel_size: pixel_size,
       border: border,
-      level: level,
-      levels: {
-                l: "7%",
-                m: "15%",
-                q: "25%",
-                h: "30%"
-              }
+      level: level
     }
-    Qr4r::encode link, file.path, encode_opts
+    if allow?(text)
+      Qr4r::encode text, file.path, encode_opts
+    else
+      encode_opts.merge!({error_text: "Вы превысили допустимое количество символов."})
+    end
+
     slim :index, :locals => {
       file: asset_path(file.path),
-      link: link
+      link: text
     }.merge(encode_opts)
 
   end
 
   run! if app_file == $0
 
-  def get_levels
-    {
-      l: "7%",
-      m: "15%",
-      q: "25%",
-      h: "30%"
-    }
+  def allow?(text)
+    text.size < 119
+  end
+
+  def size_by_text(text)
+    return 14 if (text.size < 70)
+    return 12 if (text.size < 120)
   end
 
   def asset_path(f)
